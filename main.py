@@ -38,13 +38,14 @@ async def on_ready():
     async def button_callback(interaction: discord.Interaction):
         role = discord.utils.get(interaction.guild.roles, name="member")
         await interaction.user.add_roles(role)
-        await interaction.response.send_message("You have accepted the rules ", ephemeral=True)
+        await interaction.response.send_message("Welcome aboard! By accepting the rules, you’ve unlocked the <@&1101558738818711603> role", ephemeral=True)
 
     button.callback = button_callback
 
     view = View(timeout=None)
     view.add_item(button)
     channel = bot.get_channel(1161343187458211923)
+    await channel.purge(limit=1)
     await channel.send(rules_txt.rules, view=view)
 
     print(f'Bot is up')
